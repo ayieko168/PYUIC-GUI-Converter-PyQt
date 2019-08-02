@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>544</width>
+    <height>280</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Pyuic GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="ConvertButton">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>180</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Convert</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="FileNameEntry">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>50</y>
+      <width>341</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Full path of the .ui file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="statusTip">
+     <string>Enter the full path to the Ui file you want to convet.</string>
+    </property>
+    <property name="dragEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="FileNameLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Source File</string>
+    </property>
+    <property name="indent">
+     <number>30</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="DestinationFileLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Destination</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="indent">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="DestinationFileEntry">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>110</y>
+      <width>341</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Full path to the destination&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="statusTip">
+     <string>Enter The full path to the destination of the converted python file</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="ExecutableCheck">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>186</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="statusTip">
+     <string>If Enabled Adds some Code to Make The Converted Ui File Executable</string>
+    </property>
+    <property name="whatsThis">
+     <string>Adds lines of code to make the file executable</string>
+    </property>
+    <property name="text">
+     <string>Executable</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SearchSourceFileButton">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>50</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SearchDestinationButton">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>110</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>451</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Convert A Ui file to a Python File</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>544</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="font">
+    <font>
+     <family>Vrinda</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
