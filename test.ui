@@ -13,10 +13,6 @@
   <property name="windowTitle">
    <string>Pyuic GUI</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>Icons/mainIcon.png</normaloff>Icons/mainIcon.png</iconset>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="FileNameLabel">
     <property name="geometry">
@@ -205,9 +201,6 @@
        <property name="text">
         <string>Convert</string>
        </property>
-       <property name="shortcut">
-        <string>Return</string>
-       </property>
       </widget>
      </item>
     </layout>
@@ -242,7 +235,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSetDefaultEditor"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -263,17 +255,6 @@
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="actionSetDefaultEditor">
-   <property name="text">
-    <string>Set Default Editor</string>
-   </property>
-   <property name="toolTip">
-    <string>Set Default Editor That opens the converted file</string>
    </property>
   </action>
  </widget>

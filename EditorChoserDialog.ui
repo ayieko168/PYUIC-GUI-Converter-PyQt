@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>365</width>
+    <height>346</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Editor Chooser</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>290</y>
+     <width>331</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>160</width>
+     <height>246</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QRadioButton" name="NotePadRadio">
+      <property name="text">
+       <string>NotePad</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/notepad.jpg</normaloff>Icons/notepad.jpg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="NotePadppCheck">
+      <property name="text">
+       <string>NotePad++</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/notepad++.png</normaloff>Icons/notepad++.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="PythonIdleCheck">
+      <property name="text">
+       <string>Python IDLE</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/idle.jpg</normaloff>Icons/idle.jpg</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="VSCodeCheck">
+      <property name="text">
+       <string>Visual Studio Code</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/vscode.png</normaloff>Icons/vscode.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="VimCheck">
+      <property name="text">
+       <string>Vim</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/vim.png</normaloff>Icons/vim.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="AtomCheck">
+      <property name="text">
+       <string>Atom</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/atom.png</normaloff>Icons/atom.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="MSWordCheck">
+      <property name="text">
+       <string>Ms Word</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/word.png</normaloff>Icons/word.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="NanoCheck">
+      <property name="text">
+       <string>Nono</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/nano.jpg</normaloff>Icons/nano.jpg</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="GeditCheck">
+      <property name="text">
+       <string>Gedit</string>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Icons/gedit.png</normaloff>Icons/gedit.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="SetButton">
+   <property name="geometry">
+    <rect>
+     <x>234</x>
+     <y>210</y>
+     <width>81</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Set</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="defaultButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>150</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reset To Default</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

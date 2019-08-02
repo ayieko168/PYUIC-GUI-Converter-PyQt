@@ -1,8 +1,19 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from FrontEnd import *
+from EditorChoserDialog import *
 import os
 import subprocess
+
+
+class EditorDialog(QDialog):
+
+    def __init__(self):
+
+        super().__init__()
+        self.EditorUi = Ui_Dialog()
+        self.EditorUi.setupUi(self)
+
 
 
 class App(QMainWindow):
@@ -22,7 +33,15 @@ class App(QMainWindow):
         self.ui.DestinationFileEntry.textChanged.connect(self.updateButton)
         self.ui.FileNameEntry.textChanged.connect(self.updateButton)
         self.ui.ConvertButton.clicked.connect(self.convert)
+        self.ui.AutoFillCkeck.setChecked(True)
+        self.ui.actionSetDefaultEditor.triggered.connect(self.setEditor)
 
+
+    def setEditor(self):
+
+        dialog = EditorDialog()
+        dialog.show()
+        dialog.exec_()
     
     def updateButton(self):
         """Update the Convert Button To Disabled Or Enabled"""
@@ -37,14 +56,22 @@ class App(QMainWindow):
         fileName = QFileDialog.getOpenFileNameAndFilter(filter="Design Files (*.ui)")[0]
         editedFileName = "{}/{}.py".format(os.path.dirname(fileName), os.path.basename(fileName).split(".")[0])
 
-        if len(fileName) > 6:
-            self.ui.FileNameEntry.setText(str(fileName))
-            self.ui.DestinationFileEntry.setText(str(editedFileName))
-            self.ui.DestinationFileEntry.setFocus()
+        if len(fileName) > 6:  # Check if the selected filename is valid
+            self.ui.FileNameEntry.setText(str(fileName)) # Set Souce Entry Text to File Path
             
-            startPos = (len(editedFileName) - len(os.path.basename(fileName)))
-            endPos = len(os.path.basename(fileName)) - 3
-            self.ui.DestinationFileEntry.setSelection(startPos, endPos)
+            if self.ui.AutoFillCkeck.isChecked() == True:
+                self.ui.DestinationFileEntry.setText(str(editedFileName))  # set destination entry text to file path
+                self.ui.DestinationFileEntry.setFocus()
+
+                startPos = (len(editedFileName) - len(os.path.basename(fileName)))
+                endPos = len(os.path.basename(fileName)) - 3
+                self.ui.DestinationFileEntry.setSelection(startPos, endPos)  #  Select th file name for editing
+            else:
+                pass
+            
+        else:
+            pass
+            
         
         self.updateButton()
         
@@ -73,8 +100,15 @@ class App(QMainWindow):
         command = "\"{}\" \"{}\" {} \"{}\" -o \"{}\"".format(pythonPath, pyuicPath, args, uiFilePath, destPath)
 
         self.ui.statusBar.showMessage("Converting...", 1000)
+
         exitCode = subprocess.call(command)
-        if exitCode == 0:
+        if exitCode == 0: # Run this code only if exit code is "successful"
             self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
+
+            # open the file if 'Open File' option is set
+            if self.ui.OpenAfterConvertionCheck.isChecked() == True:
+                openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
+                subprocess.call(openCommand)
+                print(openCommand)
 
         print(exitCode)

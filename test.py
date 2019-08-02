@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:/Users/royal state/PycharmProjects/PYUIC-GUI-Converter-PyQt/FrontEnd.ui'
+# Form implementation generated from reading ui file 'C:/Users/royal state/PycharmProjects/PYUIC-GUI-Converter-PyQt/test.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -26,9 +26,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(544, 293)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("Icons/mainIcon.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.FileNameLabel = QtGui.QLabel(self.centralwidget)
@@ -110,9 +107,6 @@ class Ui_MainWindow(object):
         self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
-        self.actionSetDefaultEditor = QtGui.QAction(MainWindow)
-        self.actionSetDefaultEditor.setObjectName(_fromUtf8("actionSetDefaultEditor"))
-        self.menuFile.addAction(self.actionSetDefaultEditor)
         self.menuFile.addAction(self.actionExit)
         self.menubar.addAction(self.menuFile.menuAction())
 
@@ -136,13 +130,9 @@ class Ui_MainWindow(object):
         self.OpenAfterConvertionCheck.setWhatsThis(_translate("MainWindow", "Adds lines of code to make the file executable", None))
         self.OpenAfterConvertionCheck.setText(_translate("MainWindow", "Open After Convertion", None))
         self.ConvertButton.setText(_translate("MainWindow", "Convert", None))
-        self.ConvertButton.setShortcut(_translate("MainWindow", "Return", None))
         self.FileNameEntry.setToolTip(_translate("MainWindow", "Full path to the destination", None))
         self.FileNameEntry.setStatusTip(_translate("MainWindow", "Enter The full path to the destination of the converted python file", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionOpen.setText(_translate("MainWindow", "Open", None))
         self.actionExit.setText(_translate("MainWindow", "Exit", None))
-        self.actionExit.setShortcut(_translate("MainWindow", "Ctrl+Q", None))
-        self.actionSetDefaultEditor.setText(_translate("MainWindow", "Set Default Editor", None))
-        self.actionSetDefaultEditor.setToolTip(_translate("MainWindow", "Set Default Editor That opens the converted file", None))
 
