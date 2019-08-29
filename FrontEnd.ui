@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>544</width>
-    <height>293</height>
+    <width>557</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,88 +18,6 @@
     <normaloff>Icons/mainIcon.png</normaloff>Icons/mainIcon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="FileNameLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Source File</string>
-    </property>
-    <property name="indent">
-     <number>30</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="DestinationFileLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>101</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Destination</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-    <property name="indent">
-     <number>5</number>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="DestinationFileEntry">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>110</y>
-      <width>341</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Full path to the destination&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="statusTip">
-     <string>Enter The full path to the destination of the converted python file</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="SearchSourceFileButton">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>50</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="SearchDestinationButton">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>110</y>
-      <width>51</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -126,8 +44,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>160</y>
+      <x>30</x>
+      <y>250</y>
       <width>416</width>
       <height>80</height>
      </rect>
@@ -189,7 +107,7 @@
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>173</width>
+         <width>70</width>
          <height>20</height>
         </size>
        </property>
@@ -197,6 +115,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="ConvertButton">
+       <property name="minimumSize">
+        <size>
+         <width>50</width>
+         <height>40</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>10</pointsize>
@@ -212,29 +136,223 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLineEdit" name="FileNameEntry">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>50</y>
-      <width>341</width>
-      <height>21</height>
+      <x>10</x>
+      <y>30</y>
+      <width>541</width>
+      <height>121</height>
      </rect>
     </property>
-    <property name="toolTip">
-     <string>Full path to the destination</string>
+    <property name="title">
+     <string>Source</string>
     </property>
-    <property name="statusTip">
-     <string>Enter The full path to the destination of the converted python file</string>
-    </property>
+    <widget class="QComboBox" name="recentCombo">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>50</y>
+       <width>341</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="FileNameEntry">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>341</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Full path to the destination</string>
+     </property>
+     <property name="statusTip">
+      <string>Enter The full path to the destination of the converted python file</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SearchSourceFileButton">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>50</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Search</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="DestinationFileLabel_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Recent</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="indent">
+      <number>5</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="DestinationFileLabel_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>File Path</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="indent">
+      <number>5</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="DestinationFileLabel_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Frequent</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="indent">
+      <number>5</number>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="freqCombo">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>80</y>
+       <width>341</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>430</x>
+       <y>20</y>
+       <width>20</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>541</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Destination</string>
+    </property>
+    <widget class="QPushButton" name="SearchDestinationButton">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>22</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Search</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="DestinationFileEntry">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>361</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Full path to the destination&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="statusTip">
+      <string>Enter The full path to the destination of the converted python file</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="DestinationFileLabel_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>File Path</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="indent">
+      <number>5</number>
+     </property>
+    </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>20</y>
+       <width>20</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </widget>
+   <zorder>groupBox_2</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>label</zorder>
+   <zorder>horizontalLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>544</width>
+     <width>557</width>
      <height>21</height>
     </rect>
    </property>
@@ -245,7 +363,17 @@
     <addaction name="actionSetDefaultEditor"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuFrequentFiles">
+    <property name="title">
+     <string>Sources</string>
+    </property>
+    <addaction name="actionFrequentFiles"/>
+    <addaction name="actionRecentFiles"/>
+    <addaction name="separator"/>
+    <addaction name="actionResetSources"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuFrequentFiles"/>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="font">
@@ -274,6 +402,21 @@
    </property>
    <property name="toolTip">
     <string>Set Default Editor That opens the converted file</string>
+   </property>
+  </action>
+  <action name="actionFrequentFiles">
+   <property name="text">
+    <string>Frequent Files</string>
+   </property>
+  </action>
+  <action name="actionRecentFiles">
+   <property name="text">
+    <string>Recent Files</string>
+   </property>
+  </action>
+  <action name="actionResetSources">
+   <property name="text">
+    <string>Reset Sources</string>
    </property>
   </action>
  </widget>

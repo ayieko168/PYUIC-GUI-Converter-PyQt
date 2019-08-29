@@ -4,7 +4,11 @@ from FrontEnd import *
 from EditorChoserDialog import *
 import os
 import subprocess
+import json
+from time import gmtime, strftime, localtime
+import datetime
 
+PathsDict = {}
 
 class EditorDialog(QDialog):
 
@@ -35,6 +39,7 @@ class App(QMainWindow):
         self.ui.ConvertButton.clicked.connect(self.convert)
         self.ui.AutoFillCkeck.setChecked(True)
         self.ui.actionSetDefaultEditor.triggered.connect(self.setEditor)
+        self.ui.actionResetSources.triggered.connect(self.resetData)
 
 
     def setEditor(self):
@@ -83,6 +88,31 @@ class App(QMainWindow):
         
         self.updateButton()
     
+    def addToRecent(self, PathData):
+
+        currentTimeUnix = datetime.datetime.now().timestamp()
+        currentTimeNorm = strftime("%a, %d %b %Y %I:%M:%S", localtime(currentTimeUnix)) # Thu, 29 M YYYY HH:MM:SS
+
+        with open("Recent_Freq.json", "r") as recentFoR:
+            PathsDict = json.load(recentFoR)
+        
+        if PathData in PathsDict.keys():
+            # If file is alailable...
+            fileFreqOfUse = PathsDict[PathData][0] # get the previous freq count
+            PathsDict[PathData] = [(fileFreqOfUse+1), currentTimeUnix, currentTimeNorm] # update Freq count and date
+            NewfileFreqOfUse = PathsDict[PathData] # get current freq count
+
+            print("file freq = ", NewfileFreqOfUse)
+            print(currentTimeUnix)
+        else:
+            print("New File")
+            # PathsDict[PathData] = [1, currentTimeUnix, currentTimeNorm]
+            PathsDict[PathData] = [1, currentTimeUnix, currentTimeNorm]
+        
+
+        with open("Recent_Freq.json", "w") as recentFoW:
+            json.dump(PathsDict, recentFoW, indent=2)
+
     def convert(self):
 
         login = os.getlogin()
@@ -101,14 +131,68 @@ class App(QMainWindow):
 
         self.ui.statusBar.showMessage("Converting...", 1000)
 
-        exitCode = subprocess.call(command)
-        if exitCode == 0: # Run this code only if exit code is "successful"
-            self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
+        # exitCode = subprocess.call(command)
+        # if exitCode == 0: # Run this code only if exit code is "successful"
+        #     self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
 
-            # open the file if 'Open File' option is set
-            if self.ui.OpenAfterConvertionCheck.isChecked() == True:
-                openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
-                subprocess.call(openCommand)
-                print(openCommand)
+        #     # open the file if 'Open File' option is set
+        #     if self.ui.OpenAfterConvertionCheck.isChecked() == True:
+        #         openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
+        #         subprocess.call(openCommand)
+        #         print(openCommand)
 
-        print(exitCode)
+        # print(exitCode)
+
+        self.addToRecent(uiFilePath)
+
+    def updatelists(self):
+
+        with open("Recent_Freq.json") as pj:
+            dataDict = json.load(pj)
+        print(dataDict)
+        # self.ui.recentCombo.addItems(list(items[:3]))
+
+        No=0
+        L=str
+        for k,v in dataDict:
+            dNo = v[0]
+            if dNo>No:
+                No = dNo
+                L = k
+                print(L)
+
+    def resetData(self):
+
+        print("resert")
+        self.updatelists()
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from Backend import *
+
+if __name__ == "__main__":
+    
+    w = QApplication([])
+    app = App()
+    app.show()
+    w.exec_()

@@ -1,0 +1,4 @@
+1. Add dropdown With Frequently Used And Recently Used
+	-use json
+	-count no of convertions for freq used
+	-add reset option to reset json favs and freq
