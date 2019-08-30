@@ -30,6 +30,7 @@ class App(QMainWindow):
 
         # Setup
         self.ui.ConvertButton.setEnabled(False)
+        self.updatelists()
 
         # Signal Connections
         self.ui.SearchSourceFileButton.clicked.connect(self.lookForSFile)
@@ -40,6 +41,9 @@ class App(QMainWindow):
         self.ui.AutoFillCkeck.setChecked(True)
         self.ui.actionSetDefaultEditor.triggered.connect(self.setEditor)
         self.ui.actionResetSources.triggered.connect(self.resetData)
+        self.ui.freqCombo.currentIndexChanged.connect(lambda: self.SetEntriesWithSelection(self.ui.freqCombo.currentText()))
+        self.ui.recentCombo.currentIndexChanged.connect(lambda: self.SetEntriesWithSelection(self.ui.recentCombo.currentText()))
+        
 
 
     def setEditor(self):
@@ -59,6 +63,65 @@ class App(QMainWindow):
     def lookForSFile(self):
 
         fileName = QFileDialog.getOpenFileNameAndFilter(filter="Design Files (*.ui)")[0]
+        self.SetEntriesWithSelection(fileName)
+        
+    def lookForDFile(self):
+
+        fileName = QFileDialog.getSaveFileName(filter="Python File (*.py)")
+        if len(fileName) > 6:
+            self.ui.DestinationFileEntry.setText(str(fileName))
+        
+        self.updateButton()
+    
+    def addToRecent(self, PathData):
+
+        pass
+
+    def convert(self):
+
+        login = os.getlogin()
+        pythonPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\python.exe".format(login)
+        pyuicPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\PyQt4\\uic\\pyuic.py".format(login)
+        uiFilePath = self.ui.FileNameEntry.text()
+        destPath = self.ui.DestinationFileEntry.text()
+        args = ""
+
+        if self.ui.ExecutableCheck.isChecked() == True:
+            args = "-x"
+        else:
+            args = ""
+        
+        command = "\"{}\" \"{}\" {} \"{}\" -o \"{}\"".format(pythonPath, pyuicPath, args, uiFilePath, destPath)
+
+        self.ui.statusBar.showMessage("Converting...", 1000)
+
+        exitCode = subprocess.call(command)
+        if exitCode == 0: # Run this code only if exit code is "successful"
+            self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
+
+            # open the file if 'Open File' option is set
+            if self.ui.OpenAfterConvertionCheck.isChecked() == True:
+                openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
+                subprocess.call(openCommand)
+                print(openCommand)
+
+        print(exitCode)
+
+        self.addToRecent(uiFilePath)
+        self.updatelists()
+
+    def updatelists(self):
+
+       pass
+   
+    def resetData(self):
+
+        with open("Recent_Freq.json", "w") as resetFo:
+            json.dump({"Frequently":{}, "Recently":{}}, resetFo, indent=2)
+        
+    def SetEntriesWithSelection(self, filePath):
+
+        fileName = filePath
         editedFileName = "{}/{}.py".format(os.path.dirname(fileName), os.path.basename(fileName).split(".")[0])
 
         if len(fileName) > 6:  # Check if the selected filename is valid
@@ -79,94 +142,6 @@ class App(QMainWindow):
             
         
         self.updateButton()
-        
-    def lookForDFile(self):
-
-        fileName = QFileDialog.getSaveFileName(filter="Python File (*.py)")
-        if len(fileName) > 6:
-            self.ui.DestinationFileEntry.setText(str(fileName))
-        
-        self.updateButton()
-    
-    def addToRecent(self, PathData):
-
-        currentTimeUnix = datetime.datetime.now().timestamp()
-        currentTimeNorm = strftime("%a, %d %b %Y %I:%M:%S", localtime(currentTimeUnix)) # Thu, 29 M YYYY HH:MM:SS
-
-        with open("Recent_Freq.json", "r") as recentFoR:
-            PathsDict = json.load(recentFoR)
-        
-        if PathData in PathsDict.keys():
-            # If file is alailable...
-            fileFreqOfUse = PathsDict[PathData][0] # get the previous freq count
-            PathsDict[PathData] = [(fileFreqOfUse+1), currentTimeUnix, currentTimeNorm] # update Freq count and date
-            NewfileFreqOfUse = PathsDict[PathData] # get current freq count
-
-            print("file freq = ", NewfileFreqOfUse)
-            print(currentTimeUnix)
-        else:
-            print("New File")
-            # PathsDict[PathData] = [1, currentTimeUnix, currentTimeNorm]
-            PathsDict[PathData] = [1, currentTimeUnix, currentTimeNorm]
-        
-
-        with open("Recent_Freq.json", "w") as recentFoW:
-            json.dump(PathsDict, recentFoW, indent=2)
-
-    def convert(self):
-
-        login = os.getlogin()
-        pythonPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\python.exe".format(login)
-        pyuicPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\PyQt4\\uic\\pyuic.py".format(login)
-        uiFilePath = self.ui.FileNameEntry.text()
-        destPath = self.ui.DestinationFileEntry.text()
-        args = ""
-
-        if self.ui.ExecutableCheck.isChecked() == True:
-            args = "-x"
-        else:
-            args = ""
-        
-        command = "\"{}\" \"{}\" {} \"{}\" -o \"{}\"".format(pythonPath, pyuicPath, args, uiFilePath, destPath)
-
-        self.ui.statusBar.showMessage("Converting...", 1000)
-
-        # exitCode = subprocess.call(command)
-        # if exitCode == 0: # Run this code only if exit code is "successful"
-        #     self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
-
-        #     # open the file if 'Open File' option is set
-        #     if self.ui.OpenAfterConvertionCheck.isChecked() == True:
-        #         openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
-        #         subprocess.call(openCommand)
-        #         print(openCommand)
-
-        # print(exitCode)
-
-        self.addToRecent(uiFilePath)
-
-    def updatelists(self):
-
-        with open("Recent_Freq.json") as pj:
-            dataDict = json.load(pj)
-        print(dataDict)
-        # self.ui.recentCombo.addItems(list(items[:3]))
-
-        No=0
-        L=str
-        for k,v in dataDict:
-            dNo = v[0]
-            if dNo>No:
-                No = dNo
-                L = k
-                print(L)
-
-    def resetData(self):
-
-        print("resert")
-        self.updatelists()
-         
-
 
 
 

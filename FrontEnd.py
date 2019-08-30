@@ -199,6 +199,6 @@ class Ui_MainWindow(object):
         self.actionSetDefaultEditor.setText(_translate("MainWindow", "Set Default Editor", None))
         self.actionSetDefaultEditor.setToolTip(_translate("MainWindow", "Set Default Editor That opens the converted file", None))
         self.actionFrequentFiles.setText(_translate("MainWindow", "Frequent Files", None))
-        self.actionRecentFiles.setText(_translate("MainWindow", "Recent Files", None))
+        self.actionRecentFiles.setText(_translate("MainWindow", "Reset Data", None))
         self.actionResetSources.setText(_translate("MainWindow", "Reset Sources", None))
 

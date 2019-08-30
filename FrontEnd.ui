@@ -411,7 +411,7 @@
   </action>
   <action name="actionRecentFiles">
    <property name="text">
-    <string>Recent Files</string>
+    <string>Reset Data</string>
    </property>
   </action>
   <action name="actionResetSources">
