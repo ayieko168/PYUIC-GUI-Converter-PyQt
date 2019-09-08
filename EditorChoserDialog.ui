@@ -26,7 +26,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Discard|QDialogButtonBox::Save</set>
    </property>
   </widget>
   <widget class="QWidget" name="verticalLayoutWidget">
@@ -168,7 +168,7 @@
     <string>Set</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="defaultButton">
+  <widget class="QPushButton" name="restoreDefaultButton">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -180,6 +180,32 @@
    <property name="text">
     <string>Reset To Default</string>
    </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>171</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Editor Set To: </string>
+   </property>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

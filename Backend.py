@@ -5,10 +5,11 @@ from EditorChoserDialog import *
 import os
 import subprocess
 import json
-from time import gmtime, strftime, localtime
+from time import localtime, asctime, time
 import datetime
 
 PathsDict = {}
+editor= "C:\\Windows\\system32\\notepad.exe"
 
 class EditorDialog(QDialog):
 
@@ -18,8 +19,69 @@ class EditorDialog(QDialog):
         self.EditorUi = Ui_Dialog()
         self.EditorUi.setupUi(self)
 
+        self.change = False
 
+        self.EditorUi.restoreDefaultButton.clicked.connect(self.restoreToDefault)
+        self.EditorUi.SetButton.clicked.connect(self.SetButtonCMD)
+        self.EditorUi.NotePadRadio.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.NotePadppCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.PythonIdleCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.VSCodeCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.VimCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.AtomCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.MSWordCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.NanoCheck.clicked.connect(self.ChangeSelectedEditor)
+        self.EditorUi.GeditCheck.clicked.connect(self.ChangeSelectedEditor)
 
+    
+    def MessageBox(self, message="This is a message box", icon=QMessageBox.Information, addItionalInfo="This is additional information", windowTitle="MessageBox demo"):
+
+        msg = QMessageBox()
+        msg.setIcon()
+        msg.setText(message)
+        msg.setInformativeText(addItionalInfo)
+        msg.setWindowTitle(windowTitle)
+        msg.setDetailedText(addItionalInfo)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msg.buttonClicked.connect(self.msgBoxButtonCMD)
+        retval = msg.exec_()
+
+    def msgBoxButtonCMD(self, i):
+            print ("Button pressed is:",i.text())
+    
+    def restoreToDefault(self):
+
+        self.EditorUi.NotePadRadio.setChecked(True)
+    
+    def SetButtonCMD(self):
+
+        print("set")
+    
+    def ChangeSelectedEditor(self):
+
+        global editor
+        login = os.getlogin()
+
+        if self.EditorUi.NotePadRadio.isChecked() == True:
+            editor= "C:\\Windows\\system32\\notepad.exe"
+        elif self.EditorUi.NotePadppCheck.isChecked() == True:
+            editor= "C:\\Program Files (x86)\\Notepad++\\notepad++.exe"
+        elif self.EditorUi.PythonIdleCheck.isChecked() == True:
+            editor= "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\pythonw.exe".format(login)
+        elif self.EditorUi.VSCodeCheck.isChecked() == True:
+            editor= "VSCode"
+        elif self.EditorUi.VimCheck.isChecked() == True:
+            editor= "Vim"
+        elif self.EditorUi.AtomCheck.isChecked() == True:
+            editor= "Atom"
+        elif self.EditorUi.MSWordCheck.isChecked() == True:
+            editor= "MSWord"
+        elif self.EditorUi.NanoCheck.isChecked() == True:
+            editor= "Nano"
+        elif self.EditorUi.GeditCheck.isChecked() == True:
+            editor= "Gedit"
+        
+        
 class App(QMainWindow):
 
     def __init__(self):
@@ -73,11 +135,41 @@ class App(QMainWindow):
         
         self.updateButton()
     
-    def addToRecent(self, PathData):
+    def addToDataBase(self, PathData):
 
-        pass
+        curentNormalTime = asctime(localtime(time()))
+        currentUnixTime = time()
+        freqCount = 1
+
+        with open("Recent_Freq.json", "r") as addFoR:
+            wholeDataBase = json.load(addFoR)
+            freqDataDict = wholeDataBase["Frequently"]
+            recentDataDict = wholeDataBase["Recently"]
+        
+        #### Frequently
+        # if len(freqDataDict.items()) > 0: # if there are items in the freq dict...
+        #     for key, value in freqDataDict.items():
+        #         print(value)
+        #         if PathData not in value: # if the item is NOT in the dictionary
+        #             freqDataDict[freqCount] = [PathData, curentNormalTime, currentUnixTime]
+        #             break
+        #         else: # if the item is in one of the items
+        #             del freqDataDict[key]
+        #             freqDataDict[(int(key)+1)] = [PathData, curentNormalTime, currentUnixTime]
+        #             break
+        
+        # else: # if the freq dict has NO items...
+        #     print("empty")
+        #     freqDataDict[freqCount] = [PathData, curentNormalTime, currentUnixTime]
+
+        
+
+        with open("Recent_Freq.json", "w") as addFoW:
+            json.dump(wholeDataBase, addFoW, indent=2)
 
     def convert(self):
+
+        global editor
 
         login = os.getlogin()
         pythonPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\python.exe".format(login)
@@ -97,17 +189,15 @@ class App(QMainWindow):
 
         exitCode = subprocess.call(command)
         if exitCode == 0: # Run this code only if exit code is "successful"
-            self.ui.statusBar.showMessage("Successfily Converted the UI file", 1000)
+            self.ui.statusBar.showMessage("Successfily Converted the UI file (exitCode: {})".format(exitCode), 1000)
 
             # open the file if 'Open File' option is set
             if self.ui.OpenAfterConvertionCheck.isChecked() == True:
-                openCommand = "\"{}\" \"{}\"".format("C:\\Windows\\system32\\notepad.exe", destPath)
+                openCommand = "\"{}\" \"{}\"".format(editor, destPath)
                 subprocess.call(openCommand)
                 print(openCommand)
 
-        print(exitCode)
-
-        self.addToRecent(uiFilePath)
+        self.addToDataBase(uiFilePath)
         self.updatelists()
 
     def updatelists(self):
