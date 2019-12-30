@@ -1,5 +1,4 @@
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtWidgets import *
 from Backend import *
 
 if __name__ == "__main__":
