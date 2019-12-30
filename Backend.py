@@ -1,12 +1,10 @@
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtWidgets import *
 from FrontEnd import *
 from EditorChoserDialog import *
 import os
 import subprocess
 import json
 from time import localtime, asctime, time
-import datetime
 
 PathsDict = {}
 editor= "C:\\Windows\\system32\\notepad.exe"
@@ -124,7 +122,7 @@ class App(QMainWindow):
 
     def lookForSFile(self):
 
-        fileName = QFileDialog.getOpenFileNameAndFilter(filter="Design Files (*.ui)")[0]
+        fileName = QFileDialog.getOpenFileName(filter="Design Files (*.ui)")[0]
         self.SetEntriesWithSelection(fileName)
         
     def lookForDFile(self):
@@ -172,8 +170,6 @@ class App(QMainWindow):
         global editor
 
         login = os.getlogin()
-        pythonPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\python.exe".format(login)
-        pyuicPath = "C:\\Users\\{}\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\PyQt4\\uic\\pyuic.py".format(login)
         uiFilePath = self.ui.FileNameEntry.text()
         destPath = self.ui.DestinationFileEntry.text()
         args = ""
@@ -183,7 +179,7 @@ class App(QMainWindow):
         else:
             args = ""
         
-        command = "\"{}\" \"{}\" {} \"{}\" -o \"{}\"".format(pythonPath, pyuicPath, args, uiFilePath, destPath)
+        command = "pyuic5 {} \"{}\" -o \"{}\"".format(args, uiFilePath, destPath)
 
         self.ui.statusBar.showMessage("Converting...", 1000)
 
@@ -234,30 +230,10 @@ class App(QMainWindow):
         self.updateButton()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from Backend import *
-
 if __name__ == "__main__":
     
     w = QApplication([])
     app = App()
     app.show()
     w.exec_()
+
