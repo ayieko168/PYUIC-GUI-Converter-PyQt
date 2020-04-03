@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\royal state\PycharmProjects\PYUIC-GUI-Converter-PyQt\FrontEnd.ui'
+# Form implementation generated from reading ui file 'C:/Users/ayieko/Projects And  Research/PycharmProjects/PYUIC-GUI-Converter-PyQt/FrontEnd.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -63,6 +63,7 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.recentCombo = QtWidgets.QComboBox(self.groupBox)
         self.recentCombo.setGeometry(QtCore.QRect(80, 50, 341, 22))
+        self.recentCombo.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.recentCombo.setObjectName("recentCombo")
         self.FileNameEntry = QtWidgets.QLineEdit(self.groupBox)
         self.FileNameEntry.setGeometry(QtCore.QRect(80, 20, 341, 21))
@@ -87,6 +88,7 @@ class Ui_MainWindow(object):
         self.DestinationFileLabel_4.setObjectName("DestinationFileLabel_4")
         self.freqCombo = QtWidgets.QComboBox(self.groupBox)
         self.freqCombo.setGeometry(QtCore.QRect(80, 80, 341, 22))
+        self.freqCombo.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.freqCombo.setObjectName("freqCombo")
         self.line = QtWidgets.QFrame(self.groupBox)
         self.line.setGeometry(QtCore.QRect(430, 20, 20, 81))

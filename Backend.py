@@ -133,38 +133,6 @@ class App(QMainWindow):
         
         self.updateButton()
     
-    def addToDataBase(self, PathData):
-
-        curentNormalTime = asctime(localtime(time()))
-        currentUnixTime = time()
-        freqCount = 1
-
-        with open("Recent_Freq.json", "r") as addFoR:
-            wholeDataBase = json.load(addFoR)
-            freqDataDict = wholeDataBase["Frequently"]
-            recentDataDict = wholeDataBase["Recently"]
-        
-        #### Frequently
-        # if len(freqDataDict.items()) > 0: # if there are items in the freq dict...
-        #     for key, value in freqDataDict.items():
-        #         print(value)
-        #         if PathData not in value: # if the item is NOT in the dictionary
-        #             freqDataDict[freqCount] = [PathData, curentNormalTime, currentUnixTime]
-        #             break
-        #         else: # if the item is in one of the items
-        #             del freqDataDict[key]
-        #             freqDataDict[(int(key)+1)] = [PathData, curentNormalTime, currentUnixTime]
-        #             break
-        
-        # else: # if the freq dict has NO items...
-        #     print("empty")
-        #     freqDataDict[freqCount] = [PathData, curentNormalTime, currentUnixTime]
-
-        
-
-        with open("Recent_Freq.json", "w") as addFoW:
-            json.dump(wholeDataBase, addFoW, indent=2)
-
     def convert(self):
 
         global editor
@@ -184,8 +152,10 @@ class App(QMainWindow):
         self.ui.statusBar.showMessage("Converting...", 1000)
 
         exitCode = subprocess.call(command)
+        # exitCode = 0
         if exitCode == 0: # Run this code only if exit code is "successful"
             self.ui.statusBar.showMessage("Successfily Converted the UI file (exitCode: {})".format(exitCode), 1000)
+            self.addDirectory(uiFilePath)
 
             # open the file if 'Open File' option is set
             if self.ui.OpenAfterConvertionCheck.isChecked() == True:
@@ -193,17 +163,34 @@ class App(QMainWindow):
                 subprocess.call(openCommand)
                 print(openCommand)
 
-        self.addToDataBase(uiFilePath)
         self.updatelists()
 
     def updatelists(self):
+        
+        with open("Recent_Freq.json", "r") as recents_FO:
+            data = json.load(recents_FO)
+        
+        all_db = data["All"]
+        freq_db = data["Frequently"]
+        recent_db = data["Recently"]
+        
+        
+        ## Reset The Combo Boxes
+        for i in range(20):
+            self.ui.freqCombo.removeItem(i)
+        for j in range(20):
+            self.ui.recentCombo.removeItem(j)
 
-       pass
-   
+        ## Update ComboBoxes With current data
+        self.ui.freqCombo.addItems(freq_db)
+        self.ui.recentCombo.addItems(recent_db)
+
     def resetData(self):
 
         with open("Recent_Freq.json", "w") as resetFo:
-            json.dump({"Frequently":{}, "Recently":{}}, resetFo, indent=2)
+            json.dump({"Frequently":[], "Recently":[], "All":{}}, resetFo, indent=2)
+        
+        self.updatelists()
         
     def SetEntriesWithSelection(self, filePath):
 
@@ -228,6 +215,63 @@ class App(QMainWindow):
             
         
         self.updateButton()
+
+    def addDirectory(self, path):
+        
+        with open("Recent_Freq.json", "r") as recents_db:
+            data = json.load(recents_db)
+    
+        all_db = data["All"]
+
+        if path not in all_db.keys():
+            print(f"adding {path} to db not available")
+            all_db[path] = [1, time()]
+        else:
+            print(f"updating count as {path} is already aval in db")
+            all_db[path][0]+=1
+            all_db[path][1] = time()
+        
+
+        
+        with open("Recent_Freq.json", "w") as recents_db:
+            data["Frequently"] = []
+            data["Recently"] = []
+            json.dump(data, recents_db, indent=2)
+
+        freq_db = data["Frequently"]
+        recent_db = data["Recently"]
+
+        ## update freq and recent data from all db
+        freq_check_val = 0
+        recent_check_val = 0
+
+        for k, v in all_db.items():
+            # frequency
+            if v[0] >= freq_check_val:
+                freq_check_val = v[0]
+                if k not in freq_db:
+                    freq_db.insert(0, k)
+            else:
+                if k not in freq_db:
+                    freq_db.insert(-1, k)
+
+        for k2, v2 in all_db.items():
+            # recent
+            if v2[1] >= recent_check_val:
+                recent_check_val = v2[1]
+                if k2 not in recent_db:
+                    recent_db.insert(0, k2)
+            else:
+                if k2 not in recent_db:
+                    recent_db.insert(-1, k2)
+
+        with open("Recent_Freq.json", "w") as recents_db:
+            json.dump(data, recents_db, indent=2)
+
+
+
+
+
 
 
 if __name__ == "__main__":
