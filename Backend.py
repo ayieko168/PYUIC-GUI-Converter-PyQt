@@ -18,6 +18,8 @@ class EditorDialog(QDialog):
         self.EditorUi.setupUi(self)
 
         self.change = False
+        self.EditorUi.lineEdit.setText(os.path.basename(editor))
+
 
         self.EditorUi.restoreDefaultButton.clicked.connect(self.restoreToDefault)
         self.EditorUi.SetButton.clicked.connect(self.SetButtonCMD)
@@ -31,7 +33,6 @@ class EditorDialog(QDialog):
         self.EditorUi.NanoCheck.clicked.connect(self.ChangeSelectedEditor)
         self.EditorUi.GeditCheck.clicked.connect(self.ChangeSelectedEditor)
 
-    
     def MessageBox(self, message="This is a message box", icon=QMessageBox.Information, addItionalInfo="This is additional information", windowTitle="MessageBox demo"):
 
         msg = QMessageBox()
@@ -79,6 +80,9 @@ class EditorDialog(QDialog):
         elif self.EditorUi.GeditCheck.isChecked() == True:
             editor= "Gedit"
         
+        print(f"Editor Set To {editor}")
+        self.EditorUi.lineEdit.setText(os.path.basename(editor))
+        
         
 class App(QMainWindow):
 
@@ -92,6 +96,9 @@ class App(QMainWindow):
         self.ui.ConvertButton.setEnabled(False)
         self.updatelists()
 
+        # Variables
+        self.editorPath = editor
+
         # Signal Connections
         self.ui.SearchSourceFileButton.clicked.connect(self.lookForSFile)
         self.ui.SearchDestinationButton.clicked.connect(self.lookForDFile)
@@ -101,11 +108,10 @@ class App(QMainWindow):
         self.ui.AutoFillCkeck.setChecked(True)
         self.ui.actionSetDefaultEditor.triggered.connect(self.setEditor)
         self.ui.actionResetSources.triggered.connect(self.resetData)
-        self.ui.freqCombo.currentIndexChanged.connect(lambda: self.SetEntriesWithSelection(self.ui.freqCombo.currentText()))
+        # self.ui.freqCombo.highlighted.connect(lambda: print(self.ui.freqCombo.activated))
         self.ui.recentCombo.currentIndexChanged.connect(lambda: self.SetEntriesWithSelection(self.ui.recentCombo.currentText()))
+        self.ui.freqCombo.currentIndexChanged.connect(lambda: self.SetEntriesWithSelection(self.ui.freqCombo.currentText()))
         
-
-
     def setEditor(self):
 
         dialog = EditorDialog()
@@ -162,24 +168,24 @@ class App(QMainWindow):
                 openCommand = "\"{}\" \"{}\"".format(editor, destPath)
                 subprocess.call(openCommand)
                 print(openCommand)
-
-        self.updatelists()
+            
+            self.updatelists()
 
     def updatelists(self):
+        """update db of frequent and recent data"""
         
         with open("Recent_Freq.json", "r") as recents_FO:
             data = json.load(recents_FO)
         
-        all_db = data["All"]
         freq_db = data["Frequently"]
         recent_db = data["Recently"]
-        
+        freq_db.insert(0, " ")
+        recent_db.insert(0, " ")
         
         ## Reset The Combo Boxes
-        for i in range(20):
-            self.ui.freqCombo.removeItem(i)
-        for j in range(20):
-            self.ui.recentCombo.removeItem(j)
+        
+        self.ui.freqCombo.clear()
+        self.ui.recentCombo.clear()
 
         ## Update ComboBoxes With current data
         self.ui.freqCombo.addItems(freq_db)
@@ -188,11 +194,12 @@ class App(QMainWindow):
     def resetData(self):
 
         with open("Recent_Freq.json", "w") as resetFo:
-            json.dump({"Frequently":[], "Recently":[], "All":{}}, resetFo, indent=2)
+            json.dump({"Frequently":[" "], "Recently":[" "], "All":{}}, resetFo, indent=2)
         
         self.updatelists()
         
     def SetEntriesWithSelection(self, filePath):
+        """Automatic set the Source And Destination Entries with the selected combobox Selection"""
 
         fileName = filePath
         editedFileName = "{}/{}.py".format(os.path.dirname(fileName), os.path.basename(fileName).split(".")[0])
@@ -267,10 +274,6 @@ class App(QMainWindow):
 
         with open("Recent_Freq.json", "w") as recents_db:
             json.dump(data, recents_db, indent=2)
-
-
-
-
 
 
 

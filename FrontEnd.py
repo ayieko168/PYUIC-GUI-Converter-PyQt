@@ -2,10 +2,9 @@
 
 # Form implementation generated from reading ui file 'C:/Users/ayieko/Projects And  Research/PycharmProjects/PYUIC-GUI-Converter-PyQt/FrontEnd.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
-
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -13,7 +12,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(557, 375)
+        MainWindow.resize(700, 375)
+        MainWindow.setMinimumSize(QtCore.QSize(700, 0))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Icons/mainIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 250, 416, 80))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 250, 561, 80))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -59,17 +59,19 @@ class Ui_MainWindow(object):
         self.ConvertButton.setObjectName("ConvertButton")
         self.horizontalLayout.addWidget(self.ConvertButton)
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(10, 30, 541, 121))
+        self.groupBox.setGeometry(QtCore.QRect(10, 30, 681, 121))
         self.groupBox.setObjectName("groupBox")
         self.recentCombo = QtWidgets.QComboBox(self.groupBox)
-        self.recentCombo.setGeometry(QtCore.QRect(80, 50, 341, 22))
+        self.recentCombo.setGeometry(QtCore.QRect(80, 50, 491, 20))
+        self.recentCombo.setMinimumSize(QtCore.QSize(341, 0))
         self.recentCombo.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.recentCombo.setObjectName("recentCombo")
         self.FileNameEntry = QtWidgets.QLineEdit(self.groupBox)
-        self.FileNameEntry.setGeometry(QtCore.QRect(80, 20, 341, 21))
+        self.FileNameEntry.setGeometry(QtCore.QRect(80, 20, 591, 21))
+        self.FileNameEntry.setMinimumSize(QtCore.QSize(451, 0))
         self.FileNameEntry.setObjectName("FileNameEntry")
         self.SearchSourceFileButton = QtWidgets.QPushButton(self.groupBox)
-        self.SearchSourceFileButton.setGeometry(QtCore.QRect(460, 50, 71, 31))
+        self.SearchSourceFileButton.setGeometry(QtCore.QRect(600, 60, 71, 31))
         self.SearchSourceFileButton.setObjectName("SearchSourceFileButton")
         self.DestinationFileLabel_2 = QtWidgets.QLabel(self.groupBox)
         self.DestinationFileLabel_2.setGeometry(QtCore.QRect(10, 50, 61, 21))
@@ -87,22 +89,23 @@ class Ui_MainWindow(object):
         self.DestinationFileLabel_4.setIndent(5)
         self.DestinationFileLabel_4.setObjectName("DestinationFileLabel_4")
         self.freqCombo = QtWidgets.QComboBox(self.groupBox)
-        self.freqCombo.setGeometry(QtCore.QRect(80, 80, 341, 22))
+        self.freqCombo.setGeometry(QtCore.QRect(80, 80, 491, 20))
+        self.freqCombo.setMinimumSize(QtCore.QSize(341, 0))
         self.freqCombo.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.freqCombo.setObjectName("freqCombo")
         self.line = QtWidgets.QFrame(self.groupBox)
-        self.line.setGeometry(QtCore.QRect(430, 20, 20, 81))
+        self.line.setGeometry(QtCore.QRect(570, 50, 20, 51))
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 160, 541, 71))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 160, 681, 71))
         self.groupBox_2.setObjectName("groupBox_2")
         self.SearchDestinationButton = QtWidgets.QPushButton(self.groupBox_2)
-        self.SearchDestinationButton.setGeometry(QtCore.QRect(470, 22, 61, 31))
+        self.SearchDestinationButton.setGeometry(QtCore.QRect(610, 22, 61, 31))
         self.SearchDestinationButton.setObjectName("SearchDestinationButton")
         self.DestinationFileEntry = QtWidgets.QLineEdit(self.groupBox_2)
-        self.DestinationFileEntry.setGeometry(QtCore.QRect(80, 20, 361, 21))
+        self.DestinationFileEntry.setGeometry(QtCore.QRect(80, 20, 501, 21))
         self.DestinationFileEntry.setObjectName("DestinationFileEntry")
         self.DestinationFileLabel_5 = QtWidgets.QLabel(self.groupBox_2)
         self.DestinationFileLabel_5.setGeometry(QtCore.QRect(0, 20, 71, 21))
@@ -110,7 +113,7 @@ class Ui_MainWindow(object):
         self.DestinationFileLabel_5.setIndent(5)
         self.DestinationFileLabel_5.setObjectName("DestinationFileLabel_5")
         self.line_2 = QtWidgets.QFrame(self.groupBox_2)
-        self.line_2.setGeometry(QtCore.QRect(440, 20, 20, 31))
+        self.line_2.setGeometry(QtCore.QRect(590, 20, 20, 31))
         self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
@@ -120,7 +123,7 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 557, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 700, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -193,3 +196,5 @@ class Ui_MainWindow(object):
         self.actionFrequentFiles.setText(_translate("MainWindow", "Frequent Files"))
         self.actionRecentFiles.setText(_translate("MainWindow", "Resent Files"))
         self.actionResetSources.setText(_translate("MainWindow", "Reset Sources"))
+
+
