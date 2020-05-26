@@ -160,7 +160,7 @@ class App(QMainWindow):
         exitCode = subprocess.call(command)
         # exitCode = 0
         if exitCode == 0: # Run this code only if exit code is "successful"
-            self.ui.statusBar.showMessage("Successfily Converted the UI file (exitCode: {})".format(exitCode), 1000)
+            self.ui.statusBar.showMessage("Successfily Converted the UI file (exitCode: {})".format(exitCode), 3000)
             self.addDirectory(uiFilePath)
 
             # open the file if 'Open File' option is set
